@@ -1,6 +1,5 @@
 const User = require('../models/User');
-const Post = require('../models/Post');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -24,9 +23,17 @@ const resolvers = {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       return { ...user._doc, id: user._id, token };
     },
+    // createPost: async (_, { title, description, price, type }, { user }) => {
+    //   if (!user) throw new AuthenticationError('You must be logged in');
+    //   const post = new Post({ title, description, price, type, postedBy: user._id });
+    //   await post.save();
+    //   return post;
+    // },
     createPost: async (_, { title, description, price, type }, { user }) => {
       if (!user) throw new AuthenticationError('You must be logged in');
-      const post = new Post({ title, description, price, type, postedBy: user._id });
+      const isContractor = user.role === 'Contractor';
+      const postType = isContractor ? 'Rate' : 'Job';  // Contractor posts Rates, Customer posts Jobs
+      const post = new Post({ title, description, price, type: postType, postedBy: user._id });
       await post.save();
       return post;
     },
