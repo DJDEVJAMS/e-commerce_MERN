@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 
-const Signup = ({ onSignup }) => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('consumer'); // Default to consumer
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log('Signing up:', { email, password, role });
-    onSignup(email, password, role);
+    onLogin(email, password);  // Pass credentials to parent component
   };
 
   return (
-    <div className="signup-container">
-      <h2>Signup</h2>
+    <div>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div>
           <label>Email</label>
           <input
             type="email"
@@ -26,7 +23,7 @@ const Signup = ({ onSignup }) => {
             required
           />
         </div>
-        <div className="form-group">
+        <div>
           <label>Password</label>
           <input
             type="password"
@@ -36,17 +33,10 @@ const Signup = ({ onSignup }) => {
             required
           />
         </div>
-        <div className="form-group">
-          <label>Role</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="consumer">Consumer</option>
-            <option value="contractor">Contractor</option>
-          </select>
-        </div>
-        <button type="submit" className="btn">Signup</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

@@ -1,41 +1,77 @@
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('apollo-server-express');
+const { User, Task } = require('../models');
+const { signToken } = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 const resolvers = {
   Query: {
-    getPosts: async (_, { type }) => await Post.find({ type }).populate('postedBy'),
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findById(context.user._id);
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    tasks: async () => {
+      return Task.find();
+    },
   },
+  
   Mutation: {
-    login: async (_, { email, password }) => {
+    signup: async (parent, { username, email, password, role }) => {
+      const user = await User.create({ username, email, password, role });
+      const token = signToken(user);
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-      if (!user) throw new AuthenticationError('User not found');
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) throw new AuthenticationError('Incorrect password');
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      return { ...user._doc, id: user._id, token };
+      if (!user) {
+        throw new AuthenticationError('No user found with this email');
+      }
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+      const token = signToken(user);
+      return { token, user };
     },
-    register: async (_, { username, email, password, role }) => {
-      const user = new User({ username, email, password, role });
-      user.password = await bcrypt.hash(password, 10);
-      await user.save();
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      return { ...user._doc, id: user._id, token };
+    createTask: async (parent, { title, description }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in to create a task');
+      }
+      const task = await Task.create({
+        title,
+        description,
+        postedBy: context.user._id,
+      });
+      return task;
     },
-    // createPost: async (_, { title, description, price, type }, { user }) => {
-    //   if (!user) throw new AuthenticationError('You must be logged in');
-    //   const post = new Post({ title, description, price, type, postedBy: user._id });
-    //   await post.save();
-    //   return post;
-    // },
-    createPost: async (_, { title, description, price, type }, { user }) => {
-      if (!user) throw new AuthenticationError('You must be logged in');
-      const isContractor = user.role === 'Contractor';
-      const postType = isContractor ? 'Rate' : 'Job';  // Contractor posts Rates, Customer posts Jobs
-      const post = new Post({ title, description, price, type: postType, postedBy: user._id });
-      await post.save();
-      return post;
+    assignTask: async (parent, { taskId, userId }) => {
+      const task = await Task.findByIdAndUpdate(
+        taskId,
+        { assignedTo: userId, status: 'assigned' },
+        { new: true }
+      );
+      return task;
+    },
+
+      updateUserProfile: async (parent, { username, email, password }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError('You need to be logged in to update your profile');
+        }
+  
+        const updateData = { username, email };
+        if (password) {
+          const hashedPassword = await bcrypt.hash(password, 10);
+          updateData.password = hashedPassword;
+        }
+  
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user._id,
+          updateData,
+          { new: true }
+        );
+  
+        return updatedUser;
     },
   },
 };
