@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { GET_POSTS } from '../utils/queries'; 
 
 const GET_POSTS = gql`
   query getPosts($type: String!) {

@@ -1,41 +1,58 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { AuthenticationError } = require('apollo-server-express');
+const Post = require('../models/Post');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    getPosts: async (_, { type }) => await Post.find({ type }).populate('postedBy'),
+    users: async () => User.find({}),
+    getPosts: async (parent, { type }) => Post.find({ type }).populate('postedBy'),
   },
   Mutation: {
-    login: async (_, { email, password }) => {
+    signup: async (parent, { email, password, role }) => {
+      const user = await User.create({ email, password, role });
+      const token = signToken(user);
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-      if (!user) throw new AuthenticationError('User not found');
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) throw new AuthenticationError('Incorrect password');
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      return { ...user._doc, id: user._id, token };
+      if (!user) {
+        throw new Error('No user found with this email');
+      }
+
+      const correctPw = await user.comparePassword(password);
+      if (!correctPw) {
+        throw new Error('Incorrect password');
+      }
+
+      const token = signToken(user);
+      return { token, user };
     },
-    register: async (_, { username, email, password, role }) => {
-      const user = new User({ username, email, password, role });
-      user.password = await bcrypt.hash(password, 10);
-      await user.save();
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      return { ...user._doc, id: user._id, token };
+    addPost: async (parent, { title, description, price, type }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const post = await Post.create({
+        title,
+        description,
+        price,
+        type,
+        postedBy: context.user._id,
+      });
+
+      return post.populate('postedBy');
     },
-    // createPost: async (_, { title, description, price, type }, { user }) => {
-    //   if (!user) throw new AuthenticationError('You must be logged in');
-    //   const post = new Post({ title, description, price, type, postedBy: user._id });
-    //   await post.save();
-    //   return post;
-    // },
-    createPost: async (_, { title, description, price, type }, { user }) => {
-      if (!user) throw new AuthenticationError('You must be logged in');
-      const isContractor = user.role === 'Contractor';
-      const postType = isContractor ? 'Rate' : 'Job';  // Contractor posts Rates, Customer posts Jobs
-      const post = new Post({ title, description, price, type: postType, postedBy: user._id });
-      await post.save();
-      return post;
+    updatePost: async (parent, { id, title, description, price }) => {
+      const updatedPost = await Post.findByIdAndUpdate(
+        id,
+        { title, description, price },
+        { new: true }
+      );
+      return updatedPost.populate('postedBy');
+    },
+    deletePost: async (parent, { id }) => {
+      const deletedPost = await Post.findByIdAndDelete(id);
+      return deletedPost.populate('postedBy');
     },
   },
 };
