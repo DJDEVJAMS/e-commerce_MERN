@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/progetterDB',
-  {
-
-  }
+  process.env.MONGO_URI || 'mongodb://localhost:27017/progetterDB'
 );
-
 module.exports = mongoose.connection;
