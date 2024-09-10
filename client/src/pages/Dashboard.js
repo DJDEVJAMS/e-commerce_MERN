@@ -15,11 +15,9 @@ const GET_POSTS = gql`
     }
   }
 `;
-
 function Dashboard() {
   const { data: jobsData } = useQuery(GET_POSTS, { variables: { type: 'Job' } });
   const { data: ratesData } = useQuery(GET_POSTS, { variables: { type: 'Rate' } });
-
   return (
     <div>
       <h2>Available Jobs</h2>
@@ -43,5 +41,4 @@ function Dashboard() {
     </div>
   );
 }
-
 export default Dashboard;
