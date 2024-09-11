@@ -4,7 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 const GET_POSTS = gql`
   query getPosts($type: String!) {
     getPosts(type: $type) {
-      id
+      _id
       title
       description
       price

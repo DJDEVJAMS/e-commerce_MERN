@@ -8,9 +8,9 @@ const resolvers = {
     getPosts: async (parent, { type }) => Post.find({ type }).populate('postedBy'),
   },
   Mutation: {
-    signup: async (parent, { email, password, role }) => {
+    signup: async (parent, { username, email, password, role }) => {
       try { 
-              const user = await User.create({ email, password, role });
+              const user = await User.create({ username, email, password, role });
       const token = signToken(user);
         return { token, user };
       }
@@ -64,3 +64,5 @@ const resolvers = {
     },
   },
 };
+
+module.exports = resolvers;
