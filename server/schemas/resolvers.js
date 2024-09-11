@@ -12,6 +12,7 @@ const resolvers = {
       try { 
               const user = await User.create({ username, email, password, role });
       const token = signToken(user);
+      console.log(token)
         return { token, user };
       }
       catch (err) {

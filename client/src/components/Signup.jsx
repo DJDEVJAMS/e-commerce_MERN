@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { SIGNUP } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const Signup = ({ onSignup }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');  // Default to "customer"
+const [signup] = useMutation(SIGNUP);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignup(username, email, password, role);  // Call the parent function
+  
+    signup({
+      variables: { username, email, password, role },
+    }).then((data) => {
+      console.log(data);
+      Auth.login(data.data.signup.token);
+    }).catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
@@ -49,7 +61,7 @@ const Signup = ({ onSignup }) => {
           <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="customer">Customer</option>
-            <option value="business">Business</option>
+            <option value="contractor">Contractor</option>
           </select>
         </div>
         <button type="submit">Signup</button>
