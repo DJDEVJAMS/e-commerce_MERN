@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import Header from '../components/Header';
 
 const GET_POSTS = gql`
   query getPosts($type: String!) {
@@ -19,6 +20,7 @@ function Dashboard() {
   const { data: ratesData } = useQuery(GET_POSTS, { variables: { type: 'Rate' } });
   return (
     <div>
+  
       <h2>Available Jobs</h2>
       {jobsData && jobsData.getPosts.map((post) => (
         <div key={post.id}>

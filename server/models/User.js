@@ -18,7 +18,7 @@ username: {
   },
   role: {
     type: String,
-    enum: ['customer', 'business'],
+    enum: ['customer', 'contractor'],
     required: true,
   },
 
