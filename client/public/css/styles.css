@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #0d99ff;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.search-bar {
+    margin-top: 20px;
+}
+
+.search-bar input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: white;
+    color: #0d99ff;
+    border: none;
+    cursor: pointer;
+}
+
+.categories, .featured-services, .testimonials {
+    padding: 40px 20px;
+}
+
+.category-list, .service-list, .testimonial-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.category-item, .service-item, .testimonial-item {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-item img, .service-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
