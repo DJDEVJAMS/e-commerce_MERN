@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
+import DashboardContractor from './pages/DashboardContractor';
 import Profile from './pages/Profile';
 import ErrorPage from './pages/ErrorPage';
 import Header from './components/Header';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboardcontractor" element={<DashboardContractor />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
