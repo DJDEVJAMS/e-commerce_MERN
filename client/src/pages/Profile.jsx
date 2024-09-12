@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_USER_PROFILE, UPDATE_USER_PROFILE } from '../utils/queries';  // Import queries/mutations
+import { GET_USER_PROFILE } from '../utils/queries';
+import { UPDATE_USER_PROFILE } from '../utils/mutations'  // Import queries/mutations
 import auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
-import './css/profile.css';
+import '../css/profile.css';
 const Profile = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -29,17 +30,30 @@ const Profile = () => {
     }
   }, [data]);
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'email') {
+      setEmail(value);}
+      else if (name === 'password') {
+      setPassword(value);
+      }}
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(password);
+      // if (password === '') {
       await updateProfile({
         variables: {
           username,
           email,
-          ...(password && { password }),  // Only include password if updated
-        },
+          password,        },
       });
       alert('Profile updated successfully!');
+    // } else {alert('Please enter a new password to update your profile.');}
     } catch (err) {
       console.error(err);
       alert('Error updating profile. Please try again.');

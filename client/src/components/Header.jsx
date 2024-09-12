@@ -29,12 +29,16 @@ const Header = () => {
         <div>
           {Auth.loggedIn() ? (
             <>
+            
+              <Link className= "btn btn-lg btn-light m-2" to="/Contractorlist">
+                Find a Contractor 
+              </Link>
               <Link className="btn btn-lg btn-info m-2" to="/Profile">
                 {Auth.getProfile().data.username}'s profile
               </Link>
-              <button className="btn btn-lg btn-light m-2" onClick={logout}>
+              <Link className= "btn btn-lg btn-light m-2" to="/" onClick={logout}>
                 Logout
-              </button>
+              </Link>
             </>
           ) : (
             <>

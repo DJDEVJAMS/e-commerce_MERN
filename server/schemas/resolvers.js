@@ -68,6 +68,19 @@ const resolvers = {
       return post.populate('postedBy');
     },
 
+    updateUserProfile: async (parent, { username, email, password }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        context.user._id,
+        { username, email, password },
+        { new: true }
+      );
+    return updatedUser;
+    },
+
     updatePost: async (parent, { id, title, description, price }) => {
       const updatedPost = await Post.findByIdAndUpdate(
         id,

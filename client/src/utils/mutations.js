@@ -29,3 +29,13 @@ export const LOGOUT = gql`
     logout
   }
 `;
+
+export const UPDATE_USER_PROFILE = gql`
+  mutation updateUserProfile($username: String!, $email: String!, $password: String) {
+    updateUserProfile(username: $username, email: $email, password: $password) {
+      _id
+      username
+      email
+    }
+  }
+`;

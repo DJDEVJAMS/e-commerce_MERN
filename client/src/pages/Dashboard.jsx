@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import AuthService from '../utils/auth';
-import './css/dashboard.css';
 
 const ADD_POST = gql`
   mutation AddPost($title: String!, $description: String!, $price: Float!, $type: String!) {
@@ -64,10 +63,29 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center', // Centers the form horizontally
+        alignItems: 'center', // Centers the form vertically
+        height: '100vh', // Takes full height of the viewport
+      }}
+    >
       {/* User Input Form */}
-      <form onSubmit={handleSubmit}>
-        <h2>Add a Post</h2>
+      <form 
+        onSubmit={handleSubmit} 
+        style={{
+          display: 'flex',
+          flexDirection: 'column', // Stacks the form elements vertically
+          width: '300px', // Limits the form width
+          padding: '20px', // Adds padding around the form
+          border: '1px solid #ccc', // Adds a border
+          borderRadius: '10px', // Rounds the corners
+          backgroundColor: '#f9f9f9', // Light background color
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Slight shadow for effect
+        }}
+      >
+        <h2 style={{ textAlign: 'center' }}>Add a Post</h2>
         <label>
           Title:
           <input type="text" name="title" value={formData.title} onChange={handleChange} required />
@@ -84,7 +102,9 @@ function Dashboard() {
           Type:
           <input type="text" name="type" value={formData.type} onChange={handleChange} required />
         </label>
-        <button type="submit">Add Post</button>
+        <button type="submit" style={{ marginTop: '20px', padding: '10px', backgroundColor: '#007BFF', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+          Add Post
+        </button>
       </form>
     </div>
   );

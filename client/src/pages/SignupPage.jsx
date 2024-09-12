@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGNUP } from '../utils/mutations';
 import Auth from '../utils/auth';
-import './css/signuppage.css';
+import '../css/signuppage.css';
+
 const SignupPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -63,7 +64,7 @@ const SignupPage = () => {
           <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="customer">Customer</option>
-            <option value="contractor">Business</option>
+            <option value="contractor">Contractor</option>
           </select>
         </div>
         <button type="submit">Signup</button>
