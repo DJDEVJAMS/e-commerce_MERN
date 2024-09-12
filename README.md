@@ -22,7 +22,7 @@ Pro-Getter is a web application designed to connect customers with contractors a
 - **Database**: MongoDB, Mongoose
 - **Authentication**: JWT (JSON Web Tokens)
 - **Styling**: CSS
-- **Deployment**: Render
+- **Deployment**: Render https://e-commerce-mern-5-g52a.onrender.com
 
 ## Features
 
