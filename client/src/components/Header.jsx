@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN, SIGNUP,LOGOUT } from '../utils/mutations';
-import Login from '../components/Login';
-import Signup from '../components/Signup';
 import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
@@ -17,17 +15,24 @@ const Header = () => {
   };
   return (
     <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
+      {/* <div className="container flex-row justify-space-between-lg justify-center align-center">
         <div>
           <Link className="text-light" to="/">
             <h1 className="m-0">Pro:Getter</h1>
           </Link>
           <p className="m-0">Get Pros Get Work </p>
+        </div> */}
+
+<div className="container">
+        <h1>Find the perfect freelance services for your business</h1>
+        <div className= "search-bar">
+          <input type="text" placeholder="Try 'Web Design'" />
+          <button>Search</button>
         </div>
         <div>
           {Auth.loggedIn() ? (
             <>
-              <Link className="btn btn-lg btn-info m-2" to="/me">
+              <Link className="btn btn-lg btn-info m-2" to="/Profile">
                 {Auth.getProfile().data.username}'s profile
               </Link>
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
@@ -36,10 +41,10 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link className="btn btn-lg btn-info m-2" to="/auth">
+              <Link className="btn btn-lg btn-info m-2" to="/Login">
                 Login
               </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/auth">
+              <Link className="btn btn-lg btn-light m-2" to="/Signup">
                 Signup
               </Link>
             </>

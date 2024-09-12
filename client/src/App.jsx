@@ -1,12 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import AuthPage from './pages/AuthPage';
+// import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import DashboardContractor from './pages/DashboardContractor';
 import Profile from './pages/Profile';
 import ErrorPage from './pages/ErrorPage';
 import Header from './components/Header';
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
+import Footer from './components/Footer';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,6 +18,8 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,12 +46,16 @@ function App() {
       <Routes>
     
         <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/auth" element={<AuthPage />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboardcontractor" element={<DashboardContractor />} />
+        
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+<Footer />
     </Router>
     </ApolloProvider>
   );
