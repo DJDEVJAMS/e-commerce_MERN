@@ -25,10 +25,7 @@ const Header = () => {
 
 <div className="container">
         <h1>Find the perfect freelance services for your business</h1>
-        <div className= "search-bar">
-          <input type="text" placeholder="Try 'Web Design'" />
-          <button>Search</button>
-        </div>
+    
         <div>
           {Auth.loggedIn() ? (
             <>
