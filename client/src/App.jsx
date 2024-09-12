@@ -10,7 +10,7 @@ import Header from './components/Header';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import Footer from './components/Footer';
-
+import './css/style.css';
 import {
   ApolloClient,
   InMemoryCache,

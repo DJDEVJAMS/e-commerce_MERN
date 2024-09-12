@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-
+import './css/dashboard.css';
 const ADD_POST = gql`
   mutation AddPost($title: String!, $description: String!, $username: String!) {
     addPost(title: $title, description: $description, postedBy: $username) {
