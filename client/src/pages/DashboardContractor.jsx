@@ -1,4 +1,8 @@
 
+import React, { useState } from "react";
+import { useQuery, useMutation, gql } from "@apollo/client";
+
+
 import React, { useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import './css/dashboardcontractor.css';
@@ -19,8 +23,18 @@ const SEARCH_OPPORTUNITIES = gql`
 
 // GraphQL mutation to update contractor info
 const UPDATE_CONTRACTOR_INFO = gql`
-  mutation UpdateContractorInfo($about: String!, $cost: Float!, $phone: String!, $title: String!) {
-    updateContractorInfo(about: $about, cost: $cost, phone: $phone, title: $title) {
+  mutation UpdateContractorInfo(
+    $about: String!
+    $cost: Float!
+    $phone: String!
+    $title: String!
+  ) {
+    updateContractorInfo(
+      about: $about
+      cost: $cost
+      phone: $phone
+      title: $title
+    ) {
       _id
       about
       cost
@@ -31,12 +45,12 @@ const UPDATE_CONTRACTOR_INFO = gql`
 `;
 
 function DashboardContractor() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [contractorData, setContractorData] = useState({
-    about: '',
-    cost: '',
-    phone: '',
-    title: '',
+    about: "",
+    cost: "",
+    phone: "",
+    title: "",
   });
 
   // Query for searching available opportunities
@@ -71,9 +85,9 @@ function DashboardContractor() {
           title: contractorData.title,
         },
       });
-      alert('Contractor information updated successfully!');
+      alert("Contractor information updated successfully!");
     } catch (error) {
-      console.error('Error updating contractor info:', error);
+      console.error("Error updating contractor info:", error);
     }
   };
 
@@ -88,14 +102,16 @@ function DashboardContractor() {
         onChange={handleSearchChange}
       />
       <div>
-        {opportunitiesData && opportunitiesData.searchOpportunities.map((opportunity) => (
-          <div key={opportunity._id}>
-            <h3>{opportunity.title}</h3>
-            <p>{opportunity.description}</p>
-            <p>Price: ${opportunity.price}</p>
-            <p>Posted by: {opportunity.postedBy.username}</p>
-          </div>
-        ))}
+        {opportunitiesData &&
+          opportunitiesData.searchOpportunities &&
+          opportunitiesData.searchOpportunities.map((opportunity) => (
+            <div key={opportunity._id}>
+              <h3>{opportunity.title}</h3>
+              <p>{opportunity.description}</p>
+              <p>Price: ${opportunity.price}</p>
+              <p>Posted by: {opportunity.postedBy.username}</p>
+            </div>
+          ))}
       </div>
 
       {/* Contractor Information Form */}

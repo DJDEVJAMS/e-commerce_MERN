@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import AuthService from '../utils/auth';
 import './css/dashboard.css';
+
 const ADD_POST = gql`
-  mutation AddPost($title: String!, $description: String!, $username: String!) {
-    addPost(title: $title, description: $description, postedBy: $username) {
+  mutation AddPost($title: String!, $description: String!, $price: Float!, $type: String!) {
+    addPost(title: $title, description: $description, price: $price, type: $type) {
       _id
       title
       description
@@ -18,7 +20,8 @@ function Dashboard() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    username: '',
+    price: 0,
+    type: '',
   });
 
   const [addPost] = useMutation(ADD_POST);
@@ -33,18 +36,27 @@ function Dashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Log the token to verify it's present
+    console.log(AuthService.getToken());
+
     try {
       await addPost({
         variables: {
           title: formData.title,
           description: formData.description,
-          username: formData.username,
+          price: parseFloat(formData.price), 
+          type: formData.type,
         },
       });
+
+      console.log('Post added successfully!');
+      
       setFormData({
         title: '',
         description: '',
-        username: '',
+        price: 0,
+        type: '',
       });
     } catch (error) {
       console.error('Error adding post:', error);
@@ -65,8 +77,12 @@ function Dashboard() {
           <input type="text" name="description" value={formData.description} onChange={handleChange} required />
         </label>
         <label>
-          Username:
-          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+          Price:
+          <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+        </label>
+        <label>
+          Type:
+          <input type="text" name="type" value={formData.type} onChange={handleChange} required />
         </label>
         <button type="submit">Add Post</button>
       </form>

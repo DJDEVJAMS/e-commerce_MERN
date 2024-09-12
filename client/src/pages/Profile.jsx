@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_PROFILE, UPDATE_USER_PROFILE } from '../utils/queries';  // Import queries/mutations
+import auth from '../utils/auth';
+import { Link } from 'react-router-dom';
+
+import Auth from '../utils/auth';
+
 import './css/profile.css';
 const Profile = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+
 
   // Fetch user profile using GraphQL query
   const { loading, error, data } = useQuery(GET_USER_PROFILE);
@@ -16,11 +21,11 @@ const Profile = () => {
 
   // Populate the profile fields with data fetched from the server
   useEffect(() => {
-    if (data) {
+    if (data && data.me) {
       const { me } = data;
       setUsername(me.username);
       setEmail(me.email);
-      setRole(me.role);  // role is static and cannot be changed
+
     }
   }, [data]);
 
@@ -31,7 +36,7 @@ const Profile = () => {
         variables: {
           username,
           email,
-          password: password || undefined,  // Only send password if the user updated it
+          ...(password && { password }),  // Only include password if updated
         },
       });
       alert('Profile updated successfully!');
@@ -46,7 +51,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-      <h1>{username}'s Profile</h1>
+      <h1>{Auth.getProfile().data.username}'s Profile</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
@@ -72,13 +77,13 @@ const Profile = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter new password (optional)"
+            placeholder="Enter new password (leave blank to keep current password)"
           />
         </div>
-        <div>
+        {/* <div>
           <label>Role</label>
-          <input type="text" value={role} readOnly />  {/* Static field */}
-        </div>
+          <input type="text" value={role} readOnly /> 
+        </div> */}
         <button type="submit">Update Profile</button>
       </form>
     </div>

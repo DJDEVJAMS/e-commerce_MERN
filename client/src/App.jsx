@@ -10,6 +10,8 @@ import Header from './components/Header';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import Footer from './components/Footer';
+import ContractorList from './pages/FindContractor';
+
 import './css/style.css';
 import {
   ApolloClient,
@@ -51,6 +53,7 @@ function App() {
         {/* <Route path="/auth" element={<AuthPage />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboardcontractor" element={<DashboardContractor />} />
+        <Route path="/contractors" element={<ContractorList />} />
         
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<ErrorPage />} />
