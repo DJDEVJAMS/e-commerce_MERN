@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Fiverr Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Check if user is authenticated (logic can be added to handle this) -->
+    {{#if isCustomer}}
+        <header>
+            <div class="container">
+                <h1>Welcome back, {{customer.name}}!</h1>
+                <p>Here are recommendations based on your previous searches</p>
+            </div>
+        </header>
+
+        <section class="recommended-services">
+            <h2>Services Related to Your Previous Searches</h2>
+            <div class="service-list">
+                {{#each recommendations}}
+                    <div class="service-item">
+                        <img src="{{this.image}}" alt="{{this.title}}" />
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.description}}</p>
+                        <p><strong>Starting at ${{this.price}}</strong></p>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <section class="recently-viewed">
+            <h2>Recently Viewed</h2>
+            <div class="service-list">
+                {{#each recentlyViewed}}
+                    <div class="service-item">
+                        <img src="{{this.image}}" alt="{{this.title}}" />
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.description}}</p>
+                        <p><strong>Starting at ${{this.price}}</strong></p>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; Pro:Getter - All rights reserved</p>
+            </div>
+        </footer>
+    {{else}}
+        <p>You need to log in to see your personalized dashboard. <a href="/login">Log in here</a></p>
+    {{/if}}
+
+    <script src="/client/public/js/customerpage.js"></script>
+</body>
+</html>
