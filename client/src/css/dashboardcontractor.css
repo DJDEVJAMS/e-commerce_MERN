@@ -1,0 +1,94 @@
+/* DashboardContractor.css */
+
+.dashboard-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #1dbf73;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    padding: 15px;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    border-color: #1dbf73;
+  }
+  
+  .opportunity-card {
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .opportunity-card h3 {
+    color: #333;
+  }
+  
+  .opportunity-card p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .contractor-form {
+    margin-top: 40px;
+  }
+  
+  .contractor-form label {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .contractor-form input,
+  .contractor-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .contractor-form input:focus,
+  .contractor-form textarea:focus {
+    border-color: #1dbf73;
+  }
+  
+  .contractor-form button {
+    padding: 15px;
+    background-color: #1dbf73;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contractor-form button:hover {
+    background-color: #17a564;
+  }
+  

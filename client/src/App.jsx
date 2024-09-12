@@ -12,7 +12,7 @@ import LoginPage from './pages/LoginPage';
 import Footer from './components/Footer';
 import ContractorList from './pages/FindContractor';
 
-
+import './css/style.css';
 import {
   ApolloClient,
   InMemoryCache,

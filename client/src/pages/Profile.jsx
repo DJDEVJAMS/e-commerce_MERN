@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
+import './css/profile.css';
 const Profile = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

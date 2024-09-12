@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import DashboardContractor from './DashboardContractor';
-
+import './css/home.css';
 const Home = () => {
   return (
     <div>

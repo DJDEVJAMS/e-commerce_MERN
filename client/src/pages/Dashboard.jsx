@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import AuthService from '../utils/auth';
+import './css/dashboard.css';
 
 const ADD_POST = gql`
   mutation AddPost($title: String!, $description: String!, $price: Float!, $type: String!) {
