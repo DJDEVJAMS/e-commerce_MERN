@@ -16,19 +16,19 @@ const userSeeds = [
     username: 'business1',
     email: 'business1@example.com',
     password: 'password123',
-    role: 'business',
+    role: 'contractor',
   },
   {
     username: 'customer2',
     email: 'customer2@example.com',
     password: 'password123',
-    role: 'customer',
+    role: 'contractor',
   },
   {
     username: 'business2',
     email: 'business2@example.com',
     password: 'password123',
-    role: 'business',
+    role: 'contractor',
   },
 ];
 

@@ -3,28 +3,30 @@ import { useMutation } from '@apollo/client';
 import { SIGNUP } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const Signup = ({ onSignup }) => {
+const SignupPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');  // Default to "customer"
-const [signup] = useMutation(SIGNUP);
+  const [signup] = useMutation(SIGNUP);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     signup({
       variables: { username, email, password, role },
-    }).then((data) => {
-      console.log(data);
-      Auth.login(data.data.signup.token);
-    }).catch((error) => {
-      console.error(error);
-    });
+    })
+      .then((data) => {
+        console.log(data);
+        Auth.login(data.data.signup.token);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div>
+    <div className="signup-page">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -61,7 +63,7 @@ const [signup] = useMutation(SIGNUP);
           <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="customer">Customer</option>
-            <option value="contractor">Contractor</option>
+            <option value="contractor">Business</option>
           </select>
         </div>
         <button type="submit">Signup</button>
@@ -70,4 +72,4 @@ const [signup] = useMutation(SIGNUP);
   );
 };
 
-export default Signup;
+export default SignupPage;

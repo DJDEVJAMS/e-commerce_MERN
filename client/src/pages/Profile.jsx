@@ -20,7 +20,7 @@ const Profile = () => {
       const { me } = data;
       setUsername(me.username);
       setEmail(me.email);
-      setRole(me.role);  // Assuming role is static and cannot be changed
+      setRole(me.role);  // role is static and cannot be changed
     }
   }, [data]);
 
