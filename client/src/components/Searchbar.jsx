@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import './searchbar.css'
 // We take our props object and assign each property to it's own variable name.
 // In this case we only passed one prop, `onFormSubmit`
 function SearchBar({ onFormSubmit }) {

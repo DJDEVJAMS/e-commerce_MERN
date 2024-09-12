@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client'; // Optional if using GraphQL
 import { LOGIN } from '../utils/mutations'; // Optional mutation
 import Auth from '../utils/auth'; // Authentication utility, optional
-
+import './css/style.css';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

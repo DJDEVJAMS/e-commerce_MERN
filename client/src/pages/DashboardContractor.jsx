@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-
+import './css/style.css';
 // GraphQL query to search available opportunities
 const SEARCH_OPPORTUNITIES = gql`
   query searchOpportunities($searchTerm: String!) {

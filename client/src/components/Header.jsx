@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN, SIGNUP,LOGOUT } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-
+import './header.css'
 import { Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
