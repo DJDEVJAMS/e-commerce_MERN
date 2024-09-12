@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard - Pro:Getter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    {{#if isSeller}}
+        <header>
+            <div class="container">
+                <h1>Welcome, {{seller.name}}</h1>
+                <p>Your earnings: ${{seller.earnings}}</p>
+            </div>
+        </header>
+
+        <section class="seller-services">
+            <h2>Your Services</h2>
+            <div class="service-list">
+                {{#each services}}
+                    <div class="service-item">
+                        <img src="{{this.image}}" alt="{{this.title}}" />
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.description}}</p>
+                        <p><strong>Price: ${{this.price}}</strong></p>
+                        <button>Edit Service</button>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <section class="order-stats">
+            <h2>Order Statistics</h2>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h3>Pending Orders</h3>
+                    <p>{{orderStats.pending}}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Completed Orders</h3>
+                    <p>{{orderStats.completed}}</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Cancelled Orders</h3>
+                    <p>{{orderStats.cancelled}}</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-requests">
+            <h2>Recent Customer Requests</h2>
+            <div class="request-list">
+                {{#each recentRequests}}
+                    <div class="request-item">
+                        <p><strong>From:</strong> {{this.customerName}}</p>
+                        <p><strong>Request:</strong> {{this.request}}</p>
+                        <button>Respond</button>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 Pro:Getter - All rights reserved</p>
+            </div>
+        </footer>
+    {{else}}
+        <p>You need to log in as a seller to access the dashboard. <a href="/login">Log in here</a></p>
+    {{/if}}
+
+    <script src="/client/public/js/sellerpage.js"></script>
+</body>
+</html>
