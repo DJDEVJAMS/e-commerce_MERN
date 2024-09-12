@@ -1,0 +1,60 @@
+/* Dashboard.css */
+.dashboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-container h2 {
+    color: #1dbf73;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-form label {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .dashboard-form input {
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .dashboard-form input:focus {
+    border-color: #1dbf73;
+  }
+  
+  .dashboard-form button {
+    padding: 15px;
+    background-color: #1dbf73;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dashboard-form button:hover {
+    background-color: #17a564;
+  }
+  

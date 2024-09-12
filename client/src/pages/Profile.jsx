@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_PROFILE, UPDATE_USER_PROFILE } from '../utils/queries';  // Import queries/mutations
-import './css/style.css';
+import './css/profile.css';
 const Profile = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
